@@ -17,7 +17,6 @@ con = pymongo.MongoClient("localhost", 27017)
 db = con.pyango
 songs = db.songs
 
-
 def find_all():
     yield "["
     for song in songs.find():

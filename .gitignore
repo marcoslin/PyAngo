@@ -1,6 +1,7 @@
-# Ignore the ide files
+# Ignore the IDE files
 .project
 .pydevproject
+.settings/
 .idea/
 
 # Ignore virtualenv directory

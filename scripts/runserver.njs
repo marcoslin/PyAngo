@@ -12,7 +12,7 @@ var server_file = __dirname + "/../src/python/jserver.py",
 var webServer = function () {
 	var self = this,
 		server,
-		server_start_check_re = new RegExp("Listening on http.*" + server_port),
+		server_start_check_re = new RegExp("Running on http.*" + server_port),
 		server_started = false,
 		retry_interval = 1,
 		max_retry_interval = 16;

@@ -9,36 +9,28 @@ JSON Server
 '''
 
 import os
-from bottle import route, post, put, get, delete, run, response, request, static_file, redirect
-
+from flask import Flask, redirect, request, Response
 from db import pyango
 
 # Configure Static File Server for HTML
 http_root = os.path.join(os.path.dirname(__file__), "../www")
+app = Flask(__name__, static_folder=http_root, static_url_path="/app")
 
-@route("/app/<filepath:path>")
-def server_static(filepath):
-    return static_file(filepath, root=http_root)
+@app.route("/")
+def index():
+    return redirect("/app/")
 
-@route("/")
-@route("/app/")    
-def server_index():
-    return static_file("index.html", root=http_root)
-
-
-@get("/json/song")
+# Configure Restfull
+@app.route("/json/song")
 def song_query():
-    response.content_type = "application/json"
-    return pyango.find_all()
+    return Response(pyango.find_all(), mimetype="application/json") 
 
-@get("/json/song/<song_id>")
+@app.route("/json/song/<song_id>")
 def song_get(song_id):
-    response.content_type = "application/json"
-    return pyango.find_one(song_id)
-
-
-
+    return Response(pyango.find_one(song_id), mimetype="application/json") 
 
 
 # Start the server
-run(host='localhost', port=8036, debug=True)
+if __name__ == "__main__":
+    http_port=8036
+    app.run( port=http_port, debug=True, use_reloader=False )
