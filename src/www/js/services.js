@@ -1,25 +1,30 @@
 /**
  * Create Services to be used by controllers.
  */
-angular.module("jsonServices", ['ngResource','ui.bootstrap'])
-    .factory('Songs', function($resource){
+
+/*global angular */
+
+angular.module("jsonServices", ['ngResource', 'ui.bootstrap'])
+    .factory('Songs', function ($resource) {
+        'use strict';
         return $resource("/json/song/:song_oid", {}, {
-            query: { method:'GET', isArray:true },
-            get: { method:'GET' },
+            query: { method: 'GET', isArray: true },
+            get: { method: 'GET' },
             save: { method: 'PUT' },
-            add: { method:'POST' },
-            remove: { method:'DELETE'}
+            add: { method: 'POST' },
+            remove: { method: 'DELETE'}
         });
-    })
+    });
 
 /**
  * Create Services to be used by views.
  */
 angular.module("guiServices", ['ngResource', "ui.bootstrap"])
-    .factory("Confirm", function($dialog) {
+    .factory("Confirm", function ($dialog) {
+        'use strict';
         return function (title) {
-            var message = "Proceed?";
-            var buttons = [ { result:'ok', label:'Ok', cssClass:'btn-primary confirm-ok'}, { result:'cancel', label:'Cancel', cssClass:'confirm-cancel'} ];
+            var message = "Proceed?",
+                buttons = [ { result: 'ok', label: 'Ok', cssClass: 'btn-primary confirm-ok'}, { result: 'cancel', label: 'Cancel', cssClass: 'confirm-cancel'} ];
             return $dialog.messageBox(title, message, buttons);
         };
     })
@@ -36,8 +41,16 @@ angular.module("guiServices", ['ngResource', "ui.bootstrap"])
          *     var alert = AlertService($scope);
          *     alert.$error("...");
          */
-        var showAlert = function ($scope) {
-            this.scope = $scope;
+        'use strict';
+
+        var showAlert = function (scope) {
+            scope.alerts = [];
+
+            scope.closeAlert = function () {
+                scope.alerts = [];
+            };
+
+            this.scope = scope;
         };
         showAlert.prototype.$error = function (message) {
             this.scope.alerts = [ { type: "error", msg: message } ];
@@ -48,8 +61,8 @@ angular.module("guiServices", ['ngResource', "ui.bootstrap"])
              *   error = { status: 0, data: ""};
              */
             var error_message = "";
-            if ( resource_error['data'] ) {
-                error_message = message + "  Server message: '" + resource_error['data'] + "'";
+            if (resource_error.data) {
+                error_message = message + "  Server message: '" + resource_error.data + "'";
             } else {
                 error_message = message + "  Make sure that server is running.";
             }
@@ -58,14 +71,5 @@ angular.module("guiServices", ['ngResource', "ui.bootstrap"])
         showAlert.prototype.$success = function (message) {
             this.scope.alerts = [ { type: "success", msg: message} ];
         };
-        return function($scope) {
-            $scope.alerts = [];
-
-            // Create Method to responde to Close Alert
-            $scope.closeAlert = function () {
-                $scope.alerts = [];
-            };
-
-            return new showAlert($scope)
-        };
+        return showAlert;
     });

@@ -34,12 +34,12 @@ var webServer = function () {
 		} else {
 			// If server was killed, restart it
 			console.log("# Server exited with '" + signal + "'.  Restarting...");
-			// Intentionally giving restart a 2 secs buffer in case of large number of file changed
+			// Intentionally giving restart a 1 secs buffer in case of large number of file changed
 			// During this delay, server_started is false so file change events are ignored.
 			setTimeout(function () {
 				self.start();
 				retry_interval = 1;
-			}, 2000);
+			}, 1000);
 		}
 	};
 	

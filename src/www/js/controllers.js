@@ -1,13 +1,17 @@
 /**
  * Configure Controllers
  */
-client_app.controller('SongListController', function ($scope, Songs, AlertService) {
+
+/*global angular, pyango_app */
+
+pyango_app.controller('SongListController', function ($scope, Songs, AlertService) {
+    'use strict';
     // Handle Alert
-    var alert = AlertService($scope);
+    var alert = new AlertService($scope);
     // Read the list of client from url
     $scope.songs = Songs.query(
         function () {
-            alert.$success( $scope.songs.length + " songs loaded.");
+            alert.$success($scope.songs.length + " songs loaded.");
         },
         function (error) {
             alert.$resource_error("Failed to load song list.", error);
@@ -15,15 +19,40 @@ client_app.controller('SongListController', function ($scope, Songs, AlertServic
     );
 });
 
-client_app.controller('SongController', function ($scope, $route, $routeParams, $location, Songs, AlertService) {
+pyango_app.controller('SongController', function ($scope, $route, $routeParams, $location, Songs, AlertService) {
+    'use strict';
     // Handle Alert
-    var alert = AlertService($scope);
+    var alert = new AlertService($scope), addAction, saveAction;
 
-    var addAction = function () {};
-    var saveAction = function () {};
+    // Add song
+    addAction = function () {
+        $scope.song.$add(
+            function () {
+                alert.$success("New song '" + $scope.song.name + "' added.");
+            },
+            function (error) {
+                alert.$resource_error("Failed to add a new song.", error);
+            }
+        );
+    };
+
+    // Save Song
+    saveAction = function () {
+        $scope.song.$save(
+            { song_oid: $routeParams.song_oid },
+            function () {
+                alert.$success("'" + $scope.song.name + "' updated.");
+                $location.path("#/list");
+            },
+            function (error) {
+                alert.$resource_error("Failed to save the song.", error);
+            }
+        );
+    };
+
 
     // Configure scope based on form mode
-    if ( $route.current.form_mode == 'add' ) {
+    if ($route.current.form_mode === 'add') {
         $scope.form_title = "Add a New Song";
         $scope.form_submit_caption = "Add";
         $scope.formSubmitAction = addAction;

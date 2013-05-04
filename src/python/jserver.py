@@ -29,10 +29,19 @@ def app_index():
 def song_query():
     return Response(pyango.find_all(), mimetype="application/json") 
 
-@app.route("/json/song/<song_oid>")
+@app.route("/json/song/<song_oid>", methods=['GET'])
 def song_get(song_oid):
     return Response(pyango.find_one(song_oid), mimetype="application/json")
 
+@app.route("/json/song/<song_oid>", methods=['PUT'])
+def song_update(song_oid):
+    pyango.update(song_oid, request.json)
+    return ""
+
+@app.route("/json/song", methods=['POST'])
+def song_insert():
+    pyango.insert(request.json)
+    return ""
 
 # Start the server
 if __name__ == "__main__":

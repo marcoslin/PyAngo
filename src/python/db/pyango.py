@@ -34,5 +34,15 @@ def find_one(song_oid):
     result = songs.find_one({ "_id": mongo_id} )
     return json.dumps(result, default=json_util.default)
 
+def update(song_oid, json_body):
+    mongo_id = ObjectId(song_oid)
+    # Can't update _id field
+    if "_id" in json_body:
+        del json_body["_id"]
+    songs.update({ "_id": mongo_id }, { "$set" : json_body } )
 
-
+def insert(json_body):
+    mongo_id = ObjectId()
+    # Can't update _id field
+    json_body["_id"] = mongo_id
+    songs.insert(json_body)
