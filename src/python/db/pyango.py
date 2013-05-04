@@ -18,13 +18,18 @@ db = con.pyango
 songs = db.songs
 
 def find_all():
+    first_row = True
     yield "["
     for song in songs.find():
-        yield json.dumps(song, default=json_util.default)
+        if first_row:
+            yield json.dumps(song, default=json_util.default)
+            first_row = False
+        else:
+            yield "," + json.dumps(song, default=json_util.default)
     yield "]"    
     
-def find_one(id):
-    mongo_id = ObjectId(id)
+def find_one(song_oid):
+    mongo_id = ObjectId(song_oid)
     print "find_one called for %s" % id
     result = songs.find_one({ "_id": mongo_id} )
     return json.dumps(result, default=json_util.default)

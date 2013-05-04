@@ -1,0 +1,23 @@
+<div>
+    <h2 id="form_title" ng-bind="form_title"></h2>
+
+    <form name="detailForm" ng-submit="formSubmitAction()">
+        <fieldset>
+            <legend>Info</legend>
+            <ul>
+                <li><label for="song_name">Name: </label><input id="song_name" type="text" ng-model="song.name" required /></li>
+                <li><label for="song_artist">Artist: </label><input id="song_artist" type="text" ng-model="song.artist" /></li>
+                <li><label for="song_album">Album: </label><input id="song_album" type="text" ng-model="song.album" /></li>
+            </ul>
+
+        </fieldset><fieldset>
+            <legend>Actions</legend>
+            <button id="submit_detailForm" class="btn btn-primary" type="submit" ng-bind="form_submit_caption"></button>
+            <button id="cancel_detailForm" class="btn" ng-click="cancelAction()">Cancel</button>
+        </fieldset>
+    </form>
+    <div id="alert_section">
+        <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert()">{{ alert.msg }}</alert>
+    </div>
+
+</div>
