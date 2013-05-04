@@ -57,11 +57,11 @@ var webServer = function () {
 		});
 		server.stdout.setEncoding("ascii");
 		server.stdout.on('data', function (data) {
-			console.log(data);
+			console.log(data.slice(0,-1));
 		});
 		server.stderr.setEncoding("ascii");
 		server.stderr.on('data', function (data) {
-			console.log(data);
+			console.log(data.slice(0,-1));
 			// Check the stdout and only set server_started if it indeed has started.
 			if ( server_start_check_re.test(data) ) {
 				server_started = true;
