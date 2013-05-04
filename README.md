@@ -26,3 +26,15 @@ started.
 ```
 runserver.sh
 ```
+
+
+### Git Branch
+All developement effort should take place on a branch.  To create a new branch for your work, for example `gui_json`
+run:
+```
+# Create a new local branch
+git checkout -b gui_json
+
+# Push the branh to repo
+git push -u origin gui_json
+```
