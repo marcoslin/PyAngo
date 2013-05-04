@@ -17,6 +17,9 @@ con = pymongo.MongoClient("localhost", 27017)
 db = con.pyango
 songs = db.songs
 
+
+# ========================================
+# SONGS Related
 def find_all():
     first_row = True
     yield "["
@@ -46,3 +49,15 @@ def insert(json_body):
     # Can't update _id field
     json_body["_id"] = mongo_id
     songs.insert(json_body)
+
+def delete(song_oid):
+    mongo_id = ObjectId(song_oid)
+    songs.remove({ "_id": mongo_id })
+
+# ========================================
+# REF Related
+def reference_data(attribute_name):
+    result = []
+    for genre in songs.distinct(attribute_name):
+        result.append({ "name": genre })
+    return json.dumps(result, default=json_util.default)

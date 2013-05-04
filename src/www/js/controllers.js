@@ -4,10 +4,11 @@
 
 /*global angular, pyango_app */
 
-pyango_app.controller('SongListController', function ($scope, Songs, AlertService) {
+pyango_app.controller('SongListController', function ($scope, Songs, AlertService, Confirm) {
     'use strict';
     // Handle Alert
-    var alert = new AlertService($scope);
+    var alert = new AlertService($scope), removeSong;
+
     // Read the list of client from url
     $scope.songs = Songs.query(
         function () {
@@ -17,6 +18,45 @@ pyango_app.controller('SongListController', function ($scope, Songs, AlertServic
             alert.$resource_error("Failed to load song list.", error);
         }
     );
+
+    // Delete client
+    removeSong = function (song_oid, callback) {
+        // callback will return a client_deleted flag
+        var songs = $scope.songs;
+        for ( var i = 0; i < songs.length; i++) {
+            var song = songs[i];
+            if ( song._id.$oid === song_oid ) {
+                song.$remove(
+                    { song_oid: song._id.$oid },
+                    function () {
+                        alert.$success("'" + song.name + "' deleted ")
+                        songs.splice(i, 1);
+                        if ( callback ) {
+                            callback(true);
+                        }
+                    },
+                    function (error) {
+                        alert.$resource_error("Failed to delete '" + song.name + "'.", error);
+                        if ( callback ) {
+                            callback(false);
+                        }
+                    }
+                );
+                break;
+            };
+        };
+    };
+
+    $scope.askToRemoveSong = function (song_oid, song_name, callback) {
+        // Callback is used for unit testing to confirm that clients array has be updated correctly
+        Confirm("About to delete '" + song_name + "'.")
+            .open()
+            .then( function (result) {
+                if ( result == "ok" ){
+                    removeSong(song_oid, callback);
+                }
+            });
+    };
 });
 
 pyango_app.controller('SongController', function ($scope, $route, $routeParams, $location, Songs, AlertService) {
@@ -50,7 +90,6 @@ pyango_app.controller('SongController', function ($scope, $route, $routeParams, 
         );
     };
 
-
     // Configure scope based on form mode
     if ($route.current.form_mode === 'add') {
         $scope.form_title = "Add a New Song";
@@ -77,4 +116,23 @@ pyango_app.controller('SongController', function ($scope, $route, $routeParams, 
         $location.path("#/song");
     };
 
+});
+
+//TODO: There is gotta be a way to pass arg to controller.  Tried ng-init but it did not work
+
+pyango_app.controller('TypeAheadArtistController', function ($scope, ReferenceData) {
+    'use strict';
+    $scope.selected = undefined;
+    $scope.artists = ReferenceData.query({ ref_data: "artist" });
+});
+
+pyango_app.controller('TypeAheadAlbumController', function ($scope, ReferenceData) {
+    'use strict';
+    $scope.selected = undefined;
+    $scope.albums = ReferenceData.query({ ref_data: "album" });
+});
+pyango_app.controller('TypeAheadGenreController', function ($scope, ReferenceData) {
+    'use strict';
+    $scope.selected = undefined;
+    $scope.genres = ReferenceData.query({ ref_data: "genre" });
 });

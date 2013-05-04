@@ -2,6 +2,16 @@
 
 A sample Music Catalog build on MAP stack (MongoDB, AngularJS and Python)
 
+# Dependencies
+
+### Javascript Frameworks
+Following packages are installed under `src/www/components` directory:
+
+1. [angular.js](http://angularjs.org/) >= 1.0.6
+1. [angular-resource](http://docs.angularjs.org/api/ngResource.$resource) >= 1.0.6
+1. [angular-ui-bootstrap](http://angular-ui.github.io/bootstrap/) >= 0.4.0
+
+Note: `angular-ui-bootstrap` is a custom build with: `Alert`, `Dialog` and `TypeAhead`
 
 # Development
 
@@ -26,7 +36,6 @@ started.
 ```
 runserver.sh
 ```
-
 
 ### Git Branch
 All developement effort should take place on a branch.  To create a new branch for your work, for example `gui_json`

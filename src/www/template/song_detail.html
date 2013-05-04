@@ -7,8 +7,25 @@
             <ul>
                 <li><label for="song_track">Track Number: </label><input id="song_track" type="number" ng-model="song.track" /></li>
                 <li><label for="song_name">Name: </label><input id="song_name" type="text" ng-model="song.name" required /></li>
-                <li><label for="song_artist">Artist: </label><input id="song_artist" type="text" ng-model="song.artist" /></li>
-                <li><label for="song_album">Album: </label><input id="song_album" type="text" ng-model="song.album" /></li>
+
+                <li>
+                    <label for="song_artist">Artist:</label>
+                    <div ng-controller="TypeAheadArtistController">
+                        <input id="song_artist" type="text" ng-model="song.artist" typeahead="artist.name for artist in artists | filter:$viewValue"></select>
+                    </div>
+                </li>
+                <li>
+                    <label for="song_album">Album:</label>
+                    <div ng-controller="TypeAheadAlbumController">
+                        <input id="song_album" type="text" ng-model="song.album" typeahead="album.name for album in albums | filter:$viewValue"></select>
+                    </div>
+                </li>
+                <li>
+                    <label for="song_genre">Genre:</label>
+                    <div ng-controller="TypeAheadGenreController">
+                        <input id="song_genre" type="text" ng-model="song.genre" typeahead="genre.name for genre in genres | filter:$viewValue"></select>
+                    </div>
+                </li>
             </ul>
 
         </fieldset><fieldset>

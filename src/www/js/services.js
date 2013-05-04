@@ -14,6 +14,12 @@ angular.module("jsonServices", ['ngResource', 'ui.bootstrap'])
             add: { method: 'POST' },
             remove: { method: 'DELETE'}
         });
+    })
+    .factory("ReferenceData", function ($resource) {
+        'use strict';
+        return $resource("/json/ref/:ref_data", {}, {
+            query: { method: 'GET', isArray: true }
+        });
     });
 
 /**

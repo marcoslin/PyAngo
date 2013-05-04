@@ -24,8 +24,9 @@ def index():
 def app_index():
     return send_from_directory(http_root, "index.html")
 
-# Configure Restfull
-@app.route("/json/song")
+# ========================================
+# SONGS Related
+@app.route("/json/song", methods=['GET'])
 def song_query():
     return Response(pyango.find_all(), mimetype="application/json") 
 
@@ -38,10 +39,26 @@ def song_update(song_oid):
     pyango.update(song_oid, request.json)
     return ""
 
+@app.route("/json/song/<song_oid>", methods=['DELETE'])
+def song_delete(song_oid):
+    pyango.delete(song_oid)
+    return ""
+
 @app.route("/json/song", methods=['POST'])
 def song_insert():
     pyango.insert(request.json)
     return ""
+
+# ========================================
+# REF Related
+@app.route("/json/ref/<attr_name>", methods=['GET'])
+def ref_genre_list(attr_name):
+    # Only return for pre-configured list
+    if attr_name in ("album", "artist", "genre"):
+        return Response(pyango.reference_data(attr_name), mimetype="application/json")
+    else:
+        return "Reference data does not exists for '%s'" % attr_name, 404
+
 
 # Start the server
 if __name__ == "__main__":
