@@ -19,11 +19,10 @@ songs = db.songs
 
 
 def find_all():
-    result = [];
+    yield "["
     for song in songs.find():
-        result.append( song )
-    return json.dumps(result, default=json_util.default)
-    
+        yield json.dumps(song, default=json_util.default)
+    yield "]"    
     
 def find_one(id):
     mongo_id = ObjectId(id)

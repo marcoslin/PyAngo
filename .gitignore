@@ -1,0 +1,12 @@
+# Ignore the ide files
+.project
+.pydevproject
+.idea/
+
+# Ignore virtualenv directory
+pyenv/
+
+# Ignore dev files
+*.pyc
+test.py
+

@@ -21,20 +21,22 @@ def server_static(filepath):
     return static_file(filepath, root=http_root)
 
 @route("/")
-@route("/app/index.html")    
+@route("/app/")    
 def server_index():
     return static_file("index.html", root=http_root)
 
+
+@get("/json/song")
+def song_query():
+    response.content_type = "application/json"
+    return pyango.find_all()
 
 @get("/json/song/<song_id>")
 def song_get(song_id):
     response.content_type = "application/json"
     return pyango.find_one(song_id)
 
-@get("/json/song")
-def song_query():
-    response.content_type = "application/json"
-    return pyango.find_all()
+
 
 
 
