@@ -4,20 +4,20 @@
 
 /*global angular, pyango_app */
 
-pyango_app.controller('SongListController', function ($scope, Songs, AlertService, Confirm) {
+pyango_app.controller('SongListController', function ($scope, $routeParams, Songs, SongsNavigation, AlertService, Confirm) {
     'use strict';
-    // Handle Alert
-    var alert = new AlertService($scope), removeSong;
+    // Define Paging
+    var pageSize = 15;
+    $scope.maxPagesBlocks = 15;
 
-    // Read the list of client from url
-    $scope.songs = Songs.query(
-        function () {
-            alert.$success($scope.songs.length + " songs loaded.");
-        },
-        function (error) {
-            alert.$resource_error("Failed to load song list.", error);
-        }
-    );
+    if ($routeParams.page_num) {
+        $scope.page_num = $routeParams.page_num;
+    } else {
+        $scope.page_num = 1;
+    }
+
+    // Handle Alert
+    var alert = new AlertService($scope), removeSong, queryPage;
 
     // Delete client
     removeSong = function (song_oid, callback) {
@@ -47,6 +47,7 @@ pyango_app.controller('SongListController', function ($scope, Songs, AlertServic
         };
     };
 
+    // When User click delete
     $scope.askToRemoveSong = function (song_oid, song_name, callback) {
         // Callback is used for unit testing to confirm that clients array has be updated correctly
         Confirm("About to delete '" + song_name + "'.")
@@ -57,9 +58,32 @@ pyango_app.controller('SongListController', function ($scope, Songs, AlertServic
                 }
             });
     };
+
+    // Populate Data
+    var song_page = Songs.get(
+        { page_num: $scope.page_num, page_size: pageSize },
+        function () {
+            $scope.totalPages = song_page.total_pages;
+            $scope.songs = song_page.rows;
+            alert.$success($scope.songs.length + " songs loaded for page " + $scope.page_num + ".");
+        },
+        function (error) {
+            alert.$resource_error("Failed to load song list.", error);
+        }
+    );
+
+    // Watch for change in the page_num and change route to that page
+    $scope.$watch('page_num', function (newValue, oldValue) {
+        if (newValue !== oldValue) {
+            SongsNavigation.setSongsPageNumber($scope.page_num);
+            SongsNavigation.navigateToSongsPage();
+        }
+    });
+
+
 });
 
-pyango_app.controller('SongController', function ($scope, $route, $routeParams, $location, Songs, AlertService) {
+pyango_app.controller('SongController', function ($scope, $route, $routeParams, Song, SongsNavigation, AlertService) {
     'use strict';
     // Handle Alert
     var alert = new AlertService($scope), addAction, saveAction;
@@ -82,7 +106,7 @@ pyango_app.controller('SongController', function ($scope, $route, $routeParams, 
             { song_oid: $routeParams.song_oid },
             function () {
                 alert.$success("'" + $scope.song.name + "' updated.");
-                $location.path("#/list");
+                SongsNavigation.navigateToSongsPage();
             },
             function (error) {
                 alert.$resource_error("Failed to save the song.", error);
@@ -96,13 +120,13 @@ pyango_app.controller('SongController', function ($scope, $route, $routeParams, 
         $scope.form_submit_caption = "Add";
         $scope.formSubmitAction = addAction;
 
-        $scope.song = new Songs();
+        $scope.song = new Song();
     } else {
         $scope.form_title = "Edit Song";
         $scope.form_submit_caption = "Save";
         $scope.formSubmitAction = saveAction;
 
-        $scope.song = Songs.get(
+        $scope.song = Song.get(
             { song_oid: $routeParams.song_oid },
             angular.noop,
             function (error) {
@@ -113,7 +137,7 @@ pyango_app.controller('SongController', function ($scope, $route, $routeParams, 
 
     // Cancel
     $scope.cancelAction = function () {
-        $location.path("#/song");
+        SongsNavigation.navigateToSongsPage();
     };
 
 });

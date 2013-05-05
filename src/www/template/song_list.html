@@ -23,8 +23,13 @@
         </tr>
         </tbody>
     </table>
+
+    <div id="song_list_paging">
+        <pagination boundary-links="true" num-pages="totalPages" current-page="page_num" max-size="maxPagesBlocks" class="pagination-small" previous-text="&laquo;" next-text="&raquo;"></pagination>
+    </div>
+
     <p>
-        <button id="add_song" class="btn btn-primary" onclick="window.location.href='#/song/add'">Add Song</button>
+        <button id="add_song" class="btn btn-primary" onclick="window.location.href='#/song/add'">Add Song</button>{{ theMessage }}
     </p>
 
     <div id="alert_section">

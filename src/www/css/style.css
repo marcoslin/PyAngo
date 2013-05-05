@@ -2,6 +2,10 @@ body {
     margin: 10px;
 }
 
+#song_list_paging {
+    text-align: center;
+}
+
 .inline {
     display: inline-block
 }

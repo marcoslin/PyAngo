@@ -9,9 +9,7 @@ Following packages are installed under `src/www/components` directory:
 
 1. [angular.js](http://angularjs.org/) >= 1.0.6
 1. [angular-resource](http://docs.angularjs.org/api/ngResource.$resource) >= 1.0.6
-1. [angular-ui-bootstrap](http://angular-ui.github.io/bootstrap/) >= 0.4.0
-
-Note: `angular-ui-bootstrap` is a custom build with: `Alert`, `Dialog` and `TypeAhead`
+1. [angular-ui-bootstrap](http://angular-ui.github.io/bootstrap/) >= 0.3.0
 
 # Development
 

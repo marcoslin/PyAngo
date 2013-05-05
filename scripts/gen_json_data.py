@@ -37,8 +37,8 @@ con.row_factory = sqlite3.Row
 cur = con.cursor()
 
 # Create result
-# cur.execute("select * from itune_track where genre in ('Pop','Rock') limit %d" % set_row_count)
-cur.execute("select * from itune_track where album in (%s)" % "'Back In Black', '21', 'Forever Young', 'Elis & Tom', 'Brit Awards 2003'")
+# cur.execute("select * from itune_track where album in (%s)" % "'Back In Black', '21', 'Forever Young', 'Elis & Tom', 'Brit Awards 2003'")
+cur.execute("select * from itune_track where album != '' and artist != '' order by artist, album, track_name limit %d" % set_row_count)
 for row in cur:
     dic = OrderedDict()
     for field in field_layout:

@@ -7,8 +7,13 @@
 angular.module("jsonServices", ['ngResource', 'ui.bootstrap'])
     .factory('Songs', function ($resource) {
         'use strict';
+        return $resource("/json/songs/:page_num/:page_size", { page_num: 1, page_size: 15 }, {
+            get: { method: 'GET' }
+        });
+    })
+    .factory('Song', function ($resource) {
+        'use strict';
         return $resource("/json/song/:song_oid", {}, {
-            query: { method: 'GET', isArray: true },
             get: { method: 'GET' },
             save: { method: 'PUT' },
             add: { method: 'POST' },
@@ -20,6 +25,19 @@ angular.module("jsonServices", ['ngResource', 'ui.bootstrap'])
         return $resource("/json/ref/:ref_data", {}, {
             query: { method: 'GET', isArray: true }
         });
+    })
+    .factory("SongsNavigation", function ($location) {
+        var self = this, page_num;
+
+        return {
+            setSongsPageNumber: function (page_num) {
+                self.page_num = page_num;
+            },
+            navigateToSongsPage: function () {
+                $location.path( "/songs/" + self.page_num );
+            }
+        };
+
     });
 
 /**
@@ -48,7 +66,6 @@ angular.module("guiServices", ['ngResource', "ui.bootstrap"])
          *     alert.$error("...");
          */
         'use strict';
-
         var showAlert = function (scope) {
             scope.alerts = [];
 
