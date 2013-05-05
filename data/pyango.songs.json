@@ -1,18 +1,81 @@
-{ "track": 1, "name": "A Victory Of Love",  "artist": "Alphaville", "album": "Forever Young", "genre": "Pop" }
-{ "track": 2, "name": "Summer In Berline", "artist": "Alphaville", "album": "Forever Young", "genre": "Pop" }
-{ "track": 3, "name": "Big In Japan", "artist": "Alphaville", "album": "Forever Young", "genre": "Pop" }
-{ "track": 4, "name": "To Germany With Love", "artist": "Alphaville", "album": "Forever Young", "genre": "Pop" }
-{ "track": 5, "name": "Fallen Angel", "artist": "Alphaville", "album": "Forever Young", "genre": "Pop" }
-
-
-{ "track": 1, "name": "You Shook Me",  "artist": "Led Zeppelin", "album": "BBC Sessions", "genre": "Rock" }
-{ "track": 2, "name": "I Can't Quit You Baby",  "artist": "Led Zeppelin", "album": "BBC Sessions", "genre": "Rock" }
-{ "track": 3, "name": "Communication Breakdown",  "artist": "Led Zeppelin", "album": "BBC Sessions", "genre": "Rock" }
-{ "track": 4, "name": "Dazed and Confused",  "artist": "Led Zeppelin", "album": "BBC Sessions", "genre": "Rock" }
-{ "track": 5, "name": "The Girl I Love She Got Long Black Wavy Hair",  "artist": "Led Zeppelin", "album": "BBC Sessions", "genre": "Rock" }
-{ "track": 6, "name": "What is and Should Never Be",  "artist": "Led Zeppelin", "album": "BBC Sessions", "genre": "Rock" }
-
-{ "track": 1, "name": "Misery",  "artist": "Maroon 5", "album": "Hands All Over", "genre": "Rock" }
-{ "track": 2, "name": "Give A Little More",  "artist": "Maroon 5", "album": "Hands All Over", "genre": "Rock" }
-{ "track": 3, "name": "Stutter",  "artist": "Maroon 5", "album": "Hands All Over", "genre": "Rock" }
-{ "track": 4, "name": "Don't Know Nothing",  "artist": "Maroon 5", "album": "Hands All Over", "genre": "Rock" }
+{"track_name": "Brigas Nunca Mais", "track_num": 9, "track_count": 12, "track_year": 1974, "artist": "Antonio Carlos Jobim & Elis Regina", "album": "Elis & Tom", "genre": "Bossa Nova"}
+{"track_name": "Corcovado", "track_num": 6, "track_count": 12, "track_year": 1974, "artist": "Antonio Carlos Jobim & Elis Regina", "album": "Elis & Tom", "genre": "Bossa Nova"}
+{"track_name": "Fotografia", "track_num": 11, "track_count": 12, "track_year": 1974, "artist": "Antonio Carlos Jobim & Elis Regina", "album": "Elis & Tom", "genre": "Bossa Nova"}
+{"track_name": "Modinha", "track_num": 4, "track_count": 12, "track_year": 1974, "artist": "Antonio Carlos Jobim & Elis Regina", "album": "Elis & Tom", "genre": "Bossa Nova"}
+{"track_name": "O Que Tinha De Ser", "track_num": 7, "track_count": 12, "track_year": 1974, "artist": "Antonio Carlos Jobim & Elis Regina", "album": "Elis & Tom", "genre": "Bossa Nova"}
+{"track_name": "Pois \u00c9", "track_num": 2, "track_count": 12, "track_year": 1974, "artist": "Antonio Carlos Jobim & Elis Regina", "album": "Elis & Tom", "genre": "Bossa Nova"}
+{"track_name": "Por Toda A Minha Vida", "track_num": 10, "track_count": 12, "track_year": 1974, "artist": "Antonio Carlos Jobim & Elis Regina", "album": "Elis & Tom", "genre": "Bossa Nova"}
+{"track_name": "Retrato Em Preto E Branco", "track_num": 8, "track_count": 12, "track_year": 1974, "artist": "Antonio Carlos Jobim & Elis Regina", "album": "Elis & Tom", "genre": "Bossa Nova"}
+{"track_name": "Soneto De Separa\u00e7\u00e3o", "track_num": 12, "track_count": 12, "track_year": 1974, "artist": "Antonio Carlos Jobim & Elis Regina", "album": "Elis & Tom", "genre": "Bossa Nova"}
+{"track_name": "S\u00f3 Tinha De Ser Com Voc\u00ea", "track_num": 3, "track_count": 12, "track_year": 1974, "artist": "Antonio Carlos Jobim & Elis Regina", "album": "Elis & Tom", "genre": "Bossa Nova"}
+{"track_name": "Triste", "track_num": 5, "track_count": 12, "track_year": 1974, "artist": "Antonio Carlos Jobim & Elis Regina", "album": "Elis & Tom", "genre": "Bossa Nova"}
+{"track_name": "\u00c1guas de Mar\u00e7o", "track_num": 1, "track_count": 12, "track_year": 1974, "artist": "Antonio Carlos Jobim & Elis Regina", "album": "Elis & Tom", "genre": "Bossa Nova"}
+{"track_name": "One Love", "track_num": 2, "track_count": 20, "track_year": 2003, "artist": "Blue", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "In My Place", "track_num": 3, "track_count": 20, "track_year": 2003, "artist": "Coldplay", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "What's Your Flava?", "track_num": 11, "track_count": 20, "track_year": 2003, "artist": "Craig David", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "James Dean (I Wanna Know)", "track_num": 7, "track_count": 20, "track_year": 2003, "artist": "Daniel Bedingfield", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "The Other Side", "track_num": 11, "track_count": 20, "track_year": 2003, "artist": "David Gray", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "There Goes The Fear", "track_num": 9, "track_count": 20, "track_year": 2003, "artist": "Doves", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "All My Life", "track_num": 1, "track_count": 20, "track_year": 2003, "artist": "Foo Fighters", "album": "Brit Awards 2003", "genre": "Rock"}
+{"track_name": "Unchained Melody", "track_num": 18, "track_count": 20, "track_year": 2003, "artist": "Gareth Gates", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "Purple Haze", "track_num": 14, "track_count": 20, "track_year": 2003, "artist": "Groove Armada", "album": "Brit Awards 2003", "genre": "Rock"}
+{"track_name": "Love Foolosophy", "track_num": 10, "track_count": 20, "track_year": 2003, "artist": "Jamiroquai", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "Hungry", "track_num": 17, "track_count": 20, "track_year": 2003, "artist": "Kosheen", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "Just a Little", "track_num": 6, "track_count": 20, "track_year": 2003, "artist": "Liberty X", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "B With Me", "track_num": 17, "track_count": 20, "track_year": 2003, "artist": "Mis-Teeq", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "4 My People", "track_num": 14, "track_count": 20, "track_year": 2003, "artist": "Missy Elliott", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "We Are All Made Of Stars", "track_num": 19, "track_count": 20, "track_year": 2003, "artist": "Moby", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "Dy-Na-Mi-Tee", "track_num": 1, "track_count": 20, "track_year": 2003, "artist": "Ms.Dynamite", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "Hot in Herre", "track_num": 3, "track_count": 20, "track_year": 2003, "artist": "Nelly", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "How You Remind Me", "track_num": 10, "track_count": 20, "track_year": 2003, "artist": "Nickelback", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "Little By Little", "track_num": 5, "track_count": 20, "track_year": 2003, "artist": "Oasis", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "Just Like A Pill", "track_num": 4, "track_count": 20, "track_year": 2003, "artist": "P!nk", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "R\u00f6yksopp", "track_num": 16, "track_count": 20, "track_year": 2003, "artist": "Poor Leno", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "I Will Talk And Hollywood Will Listen", "track_num": 20, "track_count": 20, "track_year": 2003, "artist": "Robbie Williams", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "It's All Gravy", "track_num": 12, "track_count": 20, "track_year": 2003, "artist": "Romeo ft.Christina Milian", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "Haters", "track_num": 15, "track_count": 20, "track_year": 2003, "artist": "So Solid Crew", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "Get Over You", "track_num": 13, "track_count": 20, "track_year": 2003, "artist": "Sophie Ellis Bextor", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "Freak Like Me", "track_num": 5, "track_count": 20, "track_year": 2003, "artist": "Sugababes", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "Come With Us", "track_num": 18, "track_count": 20, "track_year": 2003, "artist": "The Chemical Brothers", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "Dreaming Of You", "track_num": 7, "track_count": 20, "track_year": 2003, "artist": "The Coral", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "Don't Mug Yourself", "track_num": 6, "track_count": 20, "track_year": 2003, "artist": "The Streets", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "Mama Told Me Not To Come", "track_num": 20, "track_count": 20, "track_year": 2003, "artist": "Tom Jones with Stereophonics", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "Light My fire", "track_num": 9, "track_count": 20, "track_year": 2003, "artist": "Will Young", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "A Woman's Worth", "track_num": 8, "track_count": 20, "track_year": 2003, "artist": "Alicia Keys", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "Hometime", "track_num": 15, "track_count": 20, "track_year": 2003, "artist": "Alison Moyet", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "Big In Japan", "track_num": 3, "track_count": 10, "track_year": 1984, "artist": "Alphaville", "album": "Forever Young", "genre": "Pop"}
+{"track_name": "Forever Young", "track_num": 6, "track_count": 10, "track_year": 1984, "artist": "Alphaville", "album": "Forever Young", "genre": "Pop"}
+{"track_name": "The Tide is High", "track_num": 19, "track_count": 20, "track_year": 2003, "artist": "Atomic Kitten", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "Complicated", "track_num": 2, "track_count": 20, "track_year": 2003, "artist": "Avril Lavigne", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "You Were Right", "track_num": 8, "track_count": 20, "track_year": 2003, "artist": "Badly Drawn Boy", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "Anywhere", "track_num": 13, "track_count": 20, "track_year": 2003, "artist": "Beth Orton", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "Shoulda Woulda Coulda", "track_num": 16, "track_count": 20, "track_year": 2003, "artist": "Beverley Knight", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "Nu Flow", "track_num": 4, "track_count": 20, "track_year": 2003, "artist": "Big Brovaz", "album": "Brit Awards 2003", "genre": "Pop"}
+{"track_name": "Hells Bells", "track_num": 1, "track_count": 10, "track_year": 1980, "artist": "AC/DC", "album": "Back In Black", "genre": "Rock"}
+{"track_name": "Shoot To Thrill", "track_num": 2, "track_count": 10, "track_year": 1980, "artist": "AC/DC", "album": "Back In Black", "genre": "Rock"}
+{"track_name": "What Do You Do For Money Honey", "track_num": 3, "track_count": 10, "track_year": 1980, "artist": "AC/DC", "album": "Back In Black", "genre": "Rock"}
+{"track_name": "Givin' The Dog A Bone", "track_num": 4, "track_count": 10, "track_year": 1980, "artist": "AC/DC", "album": "Back In Black", "genre": "Rock"}
+{"track_name": "Let Me Put My Love Into You", "track_num": 5, "track_count": 10, "track_year": 1980, "artist": "AC/DC", "album": "Back In Black", "genre": "Rock"}
+{"track_name": "You Shook Me All Night Long", "track_num": 7, "track_count": 10, "track_year": 1980, "artist": "AC/DC", "album": "Back In Black", "genre": "Rock"}
+{"track_name": "Have A Drink On Me", "track_num": 8, "track_count": 10, "track_year": 1980, "artist": "AC/DC", "album": "Back In Black", "genre": "Rock"}
+{"track_name": "Shake A Leg", "track_num": 9, "track_count": 10, "track_year": 1980, "artist": "AC/DC", "album": "Back In Black", "genre": "Rock"}
+{"track_name": "Rock And Roll Ain't Noise Pollution", "track_num": 10, "track_count": 10, "track_year": 1980, "artist": "AC/DC", "album": "Back In Black", "genre": "Rock"}
+{"track_name": "A Victory Of Love", "track_num": 1, "track_count": 10, "track_year": 1984, "artist": "Alphaville", "album": "Forever Young", "genre": "Pop"}
+{"track_name": "Summer In Berlin", "track_num": 2, "track_count": 10, "track_year": 1984, "artist": "Alphaville", "album": "Forever Young", "genre": "Pop"}
+{"track_name": "To Germany With Love", "track_num": 4, "track_count": 10, "track_year": 1984, "artist": "Alphaville", "album": "Forever Young", "genre": "Pop"}
+{"track_name": "Fallen Angel", "track_num": 5, "track_count": 10, "track_year": 1984, "artist": "Alphaville", "album": "Forever Young", "genre": "Pop"}
+{"track_name": "In The Mood", "track_num": 7, "track_count": 10, "track_year": 1984, "artist": "Alphaville", "album": "Forever Young", "genre": "Pop"}
+{"track_name": "Sounds Like A Melody", "track_num": 8, "track_count": 10, "track_year": 1984, "artist": "Alphaville", "album": "Forever Young", "genre": "Pop"}
+{"track_name": "Lies", "track_num": 9, "track_count": 10, "track_year": 1984, "artist": "Alphaville", "album": "Forever Young", "genre": "Pop"}
+{"track_name": "The Jet Set", "track_num": 10, "track_count": 10, "track_year": 1984, "artist": "Alphaville", "album": "Forever Young", "genre": "Pop"}
+{"track_name": "Rolling In The Deep", "track_num": 1, "track_count": 11, "track_year": 2011, "artist": "Adele", "album": "21", "genre": "Vocals"}
+{"track_name": "Rumour Has It", "track_num": 2, "track_count": 11, "track_year": 2011, "artist": "Adele", "album": "21", "genre": "Vocals"}
+{"track_name": "Turning Tables", "track_num": 3, "track_count": 11, "track_year": 2011, "artist": "Adele", "album": "21", "genre": "Vocals"}
+{"track_name": "Don't You Remember", "track_num": 4, "track_count": 11, "track_year": 2011, "artist": "Adele", "album": "21", "genre": "Vocals"}
+{"track_name": "Set Fire To The Rain", "track_num": 5, "track_count": 11, "track_year": 2011, "artist": "Adele", "album": "21", "genre": "Vocals"}
+{"track_name": "He Won't Go", "track_num": 6, "track_count": 11, "track_year": 2011, "artist": "Adele", "album": "21", "genre": "Vocals"}
+{"track_name": "Take It All", "track_num": 7, "track_count": 11, "track_year": 2011, "artist": "Adele", "album": "21", "genre": "Vocals"}
+{"track_name": "I'll Be Waiting", "track_num": 8, "track_count": 11, "track_year": 2011, "artist": "Adele", "album": "21", "genre": "Vocals"}
+{"track_name": "One And Only", "track_num": 9, "track_count": 11, "track_year": 2011, "artist": "Adele", "album": "21", "genre": "Vocals"}
+{"track_name": "Lovesong", "track_num": 10, "track_count": 11, "track_year": 2011, "artist": "Adele", "album": "21", "genre": "Vocals"}
+{"track_name": "Someone Like You", "track_num": 11, "track_count": 11, "track_year": 2011, "artist": "Adele", "album": "21", "genre": "Vocals"}
