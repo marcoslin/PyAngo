@@ -75,8 +75,9 @@ pyango_app.controller('SongListController', function ($scope, $routeParams, Song
     // Watch for change in the page_num and change route to that page
     $scope.$watch('page_num', function (newValue, oldValue) {
         if (newValue !== oldValue) {
-            SongsNavigation.setSongsPageNumber($scope.page_num);
-            SongsNavigation.navigateToSongsPage();
+            SongsNavigation
+                .setSongsPageNumber($scope.page_num)
+                .gotoSongsPage();
         }
     });
 
@@ -106,7 +107,7 @@ pyango_app.controller('SongController', function ($scope, $route, $routeParams, 
             { song_oid: $routeParams.song_oid },
             function () {
                 alert.$success("'" + $scope.song.name + "' updated.");
-                SongsNavigation.navigateToSongsPage();
+                SongsNavigation.gotoSongsPage();
             },
             function (error) {
                 alert.$resource_error("Failed to save the song.", error);
@@ -137,7 +138,7 @@ pyango_app.controller('SongController', function ($scope, $route, $routeParams, 
 
     // Cancel
     $scope.cancelAction = function () {
-        SongsNavigation.navigateToSongsPage();
+        SongsNavigation.gotoSongsPage();
     };
 
 });

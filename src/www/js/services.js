@@ -27,17 +27,20 @@ angular.module("jsonServices", ['ngResource', 'ui.bootstrap'])
         });
     })
     .factory("SongsNavigation", function ($location) {
-        var self = this, page_num;
-
-        return {
-            setSongsPageNumber: function (page_num) {
+        'use strict';
+        var self = this, page_num, Nav;
+        Nav = function () {
+            this.setSongsPageNumber = function (page_num) {
                 self.page_num = page_num;
-            },
-            navigateToSongsPage: function () {
-                $location.path( "/songs/" + self.page_num );
-            }
+                return this;
+            };
+            this.gotoSongsPage = function () {
+                $location.path("/songs/" + self.page_num);
+                return this;
+            };
         };
 
+        return new Nav();
     });
 
 /**
