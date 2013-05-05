@@ -38,15 +38,34 @@ runserver.sh
 ```
 
 ### Git Branch
-All developement effort should take place on a branch.  To create a new branch for your work, for example `gui_json`
+All developement effort should take place on a branch.  To create a new branch for your work, for example `mycode`
 run:
 ```
 # Create a new local branch
-git checkout -b gui_json
+git checkout -b mycode
 
-# Push the branh to repo
-git push -u origin gui_json
+# Push the branch to repo
+git push -u origin mycode
+
+# To checkout a remote branch
+checkout -b mycode origin/mycode
 ```
 
-# Testing
-# testing flask_Security
+### Git Merge
+To merge your changes to `master`, do the following (assuming you work on a branch called `mycode`):
+```
+# Start at your branch and make sure it is up-to-date
+git checkout mycode
+git pull
+
+# Merge changes from master and run unit test to make sure everything still works
+git merge master
+
+# Merge your branch to master
+git checkout master
+git pull
+git merge mycode
+
+# Run the unit test again and push if it all works
+git push
+```
