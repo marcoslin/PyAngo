@@ -13,10 +13,10 @@
         <tbody>
         <tr ng-repeat="song in songs">
             <td>
-                <a class="song_name" href="#/song/{{ song._id.$oid }}" ng-bind="song.name"></a>
-                <a class="delete hover" title="Delete Song" ng-click="askToRemoveSong(song._id.$oid, song.name);">x</a>
+                <a class="song_name" href="#/song/{{ song._id.$oid }}" ng-bind="song.track_name"></a>
+                <a class="delete hover" title="Delete Song" ng-click="askToRemoveSong(song._id.$oid, song.track_name);">x</a>
             </td>
-            <td ng-bind="song.track"></td>
+            <td ng-bind="song.track_num"></td>
             <td ng-bind="song.artist"></td>
             <td ng-bind="song.album"></td>
             <td ng-bind="song.genre"></td>

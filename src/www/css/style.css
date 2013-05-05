@@ -2,6 +2,10 @@ body {
     margin: 10px;
 }
 
+.inline {
+    display: inline-block
+}
+
 .delete {
     font-size: 20px;
     font-weight: bold;
