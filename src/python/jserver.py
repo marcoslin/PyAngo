@@ -50,7 +50,7 @@ def song_insert():
     return ""
 
 # ========================================
-# REF Related
+# Referencial Data
 @app.route("/json/ref/<attr_name>", methods=['GET'])
 def ref_genre_list(attr_name):
     # Only return for pre-configured list
