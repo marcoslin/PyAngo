@@ -7,11 +7,11 @@
 pyango_app.controller('SongListController', function ($scope, $routeParams, Songs, SongsNavigation, AlertService, Confirm) {
     'use strict';
     // Define Paging
-    var pageSize = 15;
+    var pageSize = 15, songsPageNumber = SongsNavigation.getSongsPageNumber();
     $scope.maxPagesBlocks = 15;
 
-    if ($routeParams.page_num) {
-        $scope.page_num = $routeParams.page_num;
+    if (songsPageNumber) {
+        $scope.page_num = songsPageNumber;
     } else {
         $scope.page_num = 1;
     }
@@ -60,26 +60,29 @@ pyango_app.controller('SongListController', function ($scope, $routeParams, Song
     };
 
     // Populate Data
-    var song_page = Songs.get(
-        { page_num: $scope.page_num, page_size: pageSize },
-        function () {
-            $scope.totalPages = song_page.total_pages;
-            $scope.songs = song_page.rows;
-            alert.$success($scope.songs.length + " songs loaded for page " + $scope.page_num + ".");
-        },
-        function (error) {
-            alert.$resource_error("Failed to load song list.", error);
-        }
-    );
+    var loadSongs = function () {
+        var song_page = Songs.get(
+            { page_num: $scope.page_num, page_size: pageSize },
+            function () {
+                $scope.totalPages = song_page.total_pages;
+                $scope.songs = song_page.rows;
+                alert.$success($scope.songs.length + " songs loaded for page " + $scope.page_num + ".");
+            },
+            function (error) {
+                alert.$resource_error("Failed to load song list.", error);
+            }
+        );
+    };
 
     // Watch for change in the page_num and change route to that page
     $scope.$watch('page_num', function (newValue, oldValue) {
         if (newValue !== oldValue) {
-            SongsNavigation
-                .setSongsPageNumber($scope.page_num)
-                .gotoSongsPage();
+            SongsNavigation.setSongsPageNumber($scope.page_num);
+            loadSongs();
         }
     });
+
+    loadSongs();
 
 
 });

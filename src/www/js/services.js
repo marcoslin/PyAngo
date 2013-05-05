@@ -34,8 +34,11 @@ angular.module("jsonServices", ['ngResource', 'ui.bootstrap'])
                 self.page_num = page_num;
                 return this;
             };
+            this.getSongsPageNumber = function () {
+                return self.page_num;
+            };
             this.gotoSongsPage = function () {
-                $location.path("/songs/" + self.page_num);
+                $location.path("/songs/");
                 return this;
             };
         };
