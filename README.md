@@ -68,4 +68,9 @@ git merge mycode
 
 # Run the unit test again and push if it all works
 git push
+
+# Merged the new master back to your branch
+git checkout mycode
+git merge master
+git push
 ```
