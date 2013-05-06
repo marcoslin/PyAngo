@@ -4,79 +4,52 @@
 
 /*global angular, pyango_app */
 
-pyango_app.controller('SongListController', function ($scope, $routeParams, Songs, SongsNavigation, AlertService, Confirm) {
+pyango_app.controller('SongListController', function ($scope, $routeParams, Songs, SongsNavigation, AlertService) {
     'use strict';
-    // Define Paging
-    var songsPageNumber = SongsNavigation.getSongsPageNumber();
+    // Define number of pages the paging control should show
     $scope.maxPagesBlocks = 15;
-    $scope.search_by = "search";
 
-    if (songsPageNumber) {
-        $scope.page_num = songsPageNumber;
-    } else {
-        $scope.page_num = 1;
-    }
-
+    /* --------------------
+     * PRIVATE METHODS
+     */
     // Handle Alert
-    var alert = new AlertService($scope), removeSong, queryPage;
+    var alert = new AlertService($scope), updateSortImage, loadSongs;
 
-    // Delete client
-    removeSong = function (song_oid, callback) {
-        // callback will return a client_deleted flag
-        var songs = $scope.songs;
-        for ( var i = 0; i < songs.length; i++) {
-            var song = songs[i];
-            if ( song._id.$oid === song_oid ) {
-                song.$remove(
-                    { song_oid: song._id.$oid },
-                    function () {
-                        alert.$success("'" + song.name + "' deleted ")
-                        songs.splice(i, 1);
-                        if ( callback ) {
-                            callback(true);
-                        }
-                    },
-                    function (error) {
-                        alert.$resource_error("Failed to delete '" + song.name + "'.", error);
-                        if ( callback ) {
-                            callback(false);
-                        }
-                    }
-                );
-                break;
-            };
-        };
-    };
+    // Set the image to indicate which column is selected for sort
+    updateSortImage = function(sortField) {
+        // Set the sort picture from the header
+        var fields = ["track_name", "artist", "album", "genre"];
+        for (var i in fields) {
+            var field = fields[i];
+            var field_img = field + '_sort_img';
 
-    // When User click delete
-    $scope.askToRemoveSong = function (song_oid, song_name, callback) {
-        // Callback is used for unit testing to confirm that clients array has be updated correctly
-        Confirm("About to delete '" + song_name + "'.")
-            .open()
-            .then( function (result) {
-                if ( result == "ok" ){
-                    removeSong(song_oid, callback);
+            if ( $scope.sort_by === undefined || $scope.sort_by !== field ) {
+                // If no sort field set or if the field is not being sorted
+                $scope[field_img] = "sort_both.png";
+            } else {
+                // Return appropriate image as per sort_asc flag
+                if ($scope.sort_asc === 1) {
+                    $scope[field_img] = "sort_asc.png";
+                } else {
+                    $scope[field_img] =  "sort_desc.png";
                 }
-            });
+            }
+        }
     };
 
-    // Search related
-    $scope.searchFormSubmit = function () {
-        alert.$success("Searching for " + $scope.search_term + " using " + $scope.search_by);
-        loadSongs();
-    };
-
-    // Populate Data
-    var loadSongs = function () {
+    // Populate Song List
+    loadSongs = function () {
+        // Set page to return
         var query_param = { page_num: $scope.page_num }
 
+        // Only set the search term if set
         if ($scope.search_term) {
             query_param[$scope.search_by] = $scope.search_term;
         }
 
-        if ($scope.sortField) {
-            query_param.sort_by = $scope.sortField;
-            query_param.sort_asc = $scope.sortAsc;
+        if ($scope.sort_by) {
+            query_param.sort_by = $scope.sort_by;
+            query_param.sort_asc = $scope.sort_asc;
         }
 
         var song_page = Songs.get(
@@ -90,71 +63,97 @@ pyango_app.controller('SongListController', function ($scope, $routeParams, Song
                 alert.$resource_error("Failed to load song list.", error);
             }
         );
+
+        // Add the search_by to the query params and add it to the SongsNavigation service
+        query_param.search_by = $scope.search_by;
+        SongsNavigation.setSongsPageStatus(query_param);
     };
 
-    // Watch for change in the page_num and change route to that page
+
+    /* --------------------
+     * SCOPE METHODS
+     */
+    // Watch for change in the page_num and reload the song list
     $scope.$watch('page_num', function (newValue, oldValue) {
         if (newValue !== oldValue) {
-            SongsNavigation.setSongsPageNumber($scope.page_num);
             loadSongs();
         }
     });
 
-
-    // Sort Result
-    $scope.setSortBy = function(sortField) {
-        if ($scope.sortField === sortField && $scope.sortAsc === 0) {
-            $scope.sortField = undefined;
-            $scope.sortAsc = undefined;
-        } else {
-            console.log("sortField: " + sortField);
-            if ($scope.sortField === undefined) {
-                $scope.sortAsc = 1;
-            } else if ($scope.sortField === sortField) {
-                $scope.sortAsc = 0;
-            } else if ($scope.sortAsc === undefined) {
-                $scope.sortAsc = 1;
-            } else if ($scope.sortAsc === 1) {
-                $scope.sortAsc = 0;
-            } else {
-                $scope.sortAsc = 1;
-            }
-            $scope.sortField = sortField;
-        }
+    // Set the search turn and reload song list.  Not binding the input directly to search_term as
+    // user need to submit the search form for search to kick off.
+    $scope.searchFormSubmit = function () {
+        // Set the search_term and reload the page.
+        $scope.search_term = $scope.search_term_input;
         loadSongs();
     };
-    $scope.getSortImageName = function ( fieldName ) {
-        var no_sort = "sort_both.png";
-        if ( $scope.sortField === undefined ) {
-            return no_sort;
+
+    // Call by table header to invoke sort
+    $scope.setSortBy = function(sortField) {
+        if ($scope.sort_by === undefined) {
+            // If setting sort from no sort
+            $scope.sort_by = sortField;
+            $scope.sort_asc = 1;
+        } else if ($scope.sort_by === sortField && $scope.sort_asc === 0) {
+            // If clicking on a sort descending field, clear sort flags
+            $scope.sort_by = undefined;
+            $scope.sort_asc = undefined;
+        } else if ($scope.sort_by === sortField) {
+            // If clicking on a sort ascending field, set to sort descending
+            $scope.sort_asc = 0;
         } else {
-            if ( $scope.sortField === fieldName ) {
-                if ($scope.sortAsc === 1) {
-                    return "sort_asc.png";
-                } else {
-                    return "sort_desc.png";
-                }
-            } else {
-                return no_sort;
-            }
+            // If asking to sort on another field
+            $scope.sort_by = sortField;
+            $scope.sort_asc = 1;
         }
+
+        updateSortImage(sortField);
+
+        // Refresh the page's data
+        loadSongs();
     };
 
-    loadSongs();
+    /* --------------------
+     * LOAD DATA
+     */
+    // Set the page state to saved status.
+    if (SongsNavigation.isStatusSet()) {
+        $scope.page_num = SongsNavigation.getSongsPageStatus('page_num');
+        $scope.search_by = SongsNavigation.getSongsPageStatus('search_by');
+        $scope.search_term = SongsNavigation.getSongsPageStatus($scope.search_by);
+        $scope.sort_by = SongsNavigation.getSongsPageStatus('sort_by');
+        $scope.sort_asc = SongsNavigation.getSongsPageStatus('sort_asc');
+        // Update search input box if search_term is set
+        if ( $scope.search_term ) {
+            $scope.search_term_input = $scope.search_term
+        }
+        // Update image based on saved state
+        updateSortImage($scope.sort_by);
+    } else {
+        $scope.search_by = "search";
+        $scope.page_num = 1;
+    }
 
+    // LOAD THE PAGE DATA
+    loadSongs();
 
 });
 
-pyango_app.controller('SongController', function ($scope, $route, $routeParams, Song, SongsNavigation, AlertService) {
+pyango_app.controller('SongController', function ($scope, $route, $routeParams, Song, SongsNavigation, Confirm, AlertService) {
     'use strict';
+
+    /* --------------------
+     * PRIVATE METHODS
+     */
+
     // Handle Alert
-    var alert = new AlertService($scope), addAction, saveAction;
+    var alert = new AlertService($scope), addAction, saveAction, removeAction;
 
     // Add song
     addAction = function () {
         $scope.song.$add(
             function () {
-                alert.$success("New song '" + $scope.song.name + "' added.");
+                alert.$success("New song '" + $scope.song.track_name + "' added.");
             },
             function (error) {
                 alert.$resource_error("Failed to add a new song.", error);
@@ -176,10 +175,62 @@ pyango_app.controller('SongController', function ($scope, $route, $routeParams, 
         );
     };
 
+    // Delete client
+    removeAction = function (song_oid, callback) {
+        // callback will return a client_deleted flag, used for unit test
+        var song_name = $scope.song.track_name;
+        $scope.song.$remove(
+            { song_oid: $scope.song._id.$oid },
+            function () {
+                alert.$success("'" + song_name + "' deleted ")
+                if ( callback ) {
+                    callback(true);
+                }
+            },
+            function (error) {
+                alert.$resource_error("Failed to delete '" + song_name + "'.", error);
+                if ( callback ) {
+                    callback(false);
+                }
+            }
+        );
+    };
+
+    /* --------------------
+     * SCOPE METHODS
+     */
+
+    // Ask to confirm the song deletion before deleting it
+    $scope.askToRemoveSong = function (song_oid, song_name) {
+        // Callback is used for unit testing to confirm that clients array has be updated correctly
+        Confirm("About to delete '" + song_name + "'.")
+            .open()
+            .then( function (result) {
+                if ( result == "ok" ){
+                    removeAction(song_oid, function (songDeleted) {
+                        if (songDeleted) {
+                            // Go back to songs page if delete successful
+                            SongsNavigation.gotoSongsPage();
+                        }
+                    });
+                }
+            });
+    };
+
+    // Cancel
+    $scope.cancelAction = function () {
+        SongsNavigation.gotoSongsPage();
+    };
+
+
+    /* --------------------
+     * LOAD DATA
+     */
     // Configure scope based on form mode
     if ($route.current.form_mode === 'add') {
         $scope.form_title = "Add a New Song";
         $scope.form_submit_caption = "Add";
+        $scope.show_delete_button = "hide";
         $scope.formSubmitAction = addAction;
 
         $scope.song = new Song();
@@ -197,10 +248,7 @@ pyango_app.controller('SongController', function ($scope, $route, $routeParams, 
         );
     }
 
-    // Cancel
-    $scope.cancelAction = function () {
-        SongsNavigation.gotoSongsPage();
-    };
+
 
 });
 

@@ -4,14 +4,17 @@
 
 /*global angular */
 
-angular.module("jsonServices", ['ngResource', 'ui.bootstrap'])
+angular.module("jsonServices", ['ngResource'])
     .factory('Songs', function ($resource) {
+        // Retrieve the list of song.  Only page_num set the page to return.
+        // Other params accepted: search_by, search_term, sort_by, sort_asc
         'use strict';
         return $resource("/json/songs/:page_num", { page_num: 1 }, {
             get: { method: 'GET' }
         });
     })
     .factory('Song', function ($resource) {
+        // Retrieve a song
         'use strict';
         return $resource("/json/song/:song_oid", {}, {
             get: { method: 'GET' },
@@ -21,21 +24,31 @@ angular.module("jsonServices", ['ngResource', 'ui.bootstrap'])
         });
     })
     .factory("ReferenceData", function ($resource) {
+        // Retrieve distinct list of artist, album or genre to be used by TypeAhead
         'use strict';
         return $resource("/json/ref/:ref_data", {}, {
             query: { method: 'GET', isArray: true }
         });
     })
     .factory("SongsNavigation", function ($location) {
+        /**
+         * This service is used to store the search, sort and page
+         * criteria of the Songs List page allowing the app to
+         * return the page to the stored location.
+         */
         'use strict';
-        var self = this, page_num, Nav;
+        var self = this, page_status, Nav;
         Nav = function () {
-            this.setSongsPageNumber = function (page_num) {
-                self.page_num = page_num;
+            this.setSongsPageStatus = function (page_status) {
+                self.page_status = page_status;
                 return this;
             };
-            this.getSongsPageNumber = function () {
-                return self.page_num;
+            this.getSongsPageStatus = function (status) {
+                //console.log("PageStatus " + status + ": " + self.page_status[status]);
+                return self.page_status[status];
+            };
+            this.isStatusSet = function () {
+                return (self.page_status !== undefined);
             };
             this.gotoSongsPage = function () {
                 $location.path("/songs/");
@@ -49,7 +62,7 @@ angular.module("jsonServices", ['ngResource', 'ui.bootstrap'])
 /**
  * Create Services to be used by views.
  */
-angular.module("guiServices", ['ngResource', "ui.bootstrap"])
+angular.module("guiServices", ["ui.bootstrap"])
     .factory("Confirm", function ($dialog) {
         'use strict';
         return function (title) {

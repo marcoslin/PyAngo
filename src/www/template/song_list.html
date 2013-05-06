@@ -9,7 +9,7 @@
                 <option value="artist">Artist</option>
                 <option value="album">Album</option>
             </select>
-            <input type="text" class="search-query" placeholder="Search" ng-model="search_term">
+            <input type="text" class="search-query" placeholder="Search" ng-model="search_term_input">
         </form>
     </div>
 
@@ -17,27 +17,26 @@
         <thead class="sorting"><tr>
             <th>
                 <a href="" ng-click="setSortBy('track_name')">Name</a>
-                <img class="pull-right" ng-src="images/{{ getSortImageName('track_name') }}" />
+                <img class="pull-right" ng-src="img/{{ track_name_sort_img || 'sort_both.png' }}" />
             </th>
             <th>Track</th>
             <th>
                 <a href="" ng-click="setSortBy('artist')">Artist</a>
-                <img class="pull-right" ng-src="images/{{ getSortImageName('artist') }}" />
+                <img class="pull-right" ng-src="img/{{ artist_sort_img || 'sort_both.png' }}" />
             </th>
             <th>
                 <a href="" ng-click="setSortBy('album')">Album</a>
-                <img class="pull-right" ng-src="images/{{ getSortImageName('album') }}" />
+                <img class="pull-right" ng-src="img/{{ album_sort_img || 'sort_both.png' }}" />
             </th>
             <th>
                 <a href="" ng-click="setSortBy('genre')">Genre</a>
-                <img class="pull-right" ng-src="images/{{ getSortImageName('genre') }}" />
+                <img class="pull-right" ng-src="img/{{ genre_sort_img || 'sort_both.png' }}" />
             </th>
         </tr></thead>
         <tbody>
         <tr ng-repeat="song in songs">
             <td>
                 <a class="song_name" href="#/song/{{ song._id.$oid }}" ng-bind="song.track_name"></a>
-                <a class="delete hover" title="Delete Song" ng-click="askToRemoveSong(song._id.$oid, song.track_name);">x</a>
             </td>
             <td ng-bind="song.track_num"></td>
             <td ng-bind="song.artist"></td>
@@ -49,9 +48,6 @@
 
     <div id="song_list_paging">
         <pagination boundary-links="true" num-pages="totalPages" current-page="page_num" max-size="maxPagesBlocks" class="pagination-small" previous-text="&laquo;" next-text="&raquo;"></pagination>
-        <p>
-            sort: {{ sortField }}; direction {{ sortAsc }}
-        </p>
     </div>
 
     <p>

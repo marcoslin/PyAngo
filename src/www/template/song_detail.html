@@ -46,6 +46,7 @@
         </fieldset><fieldset>
             <legend>Actions</legend>
             <button id="submit_detailForm" class="btn btn-primary" type="submit" ng-bind="form_submit_caption"></button>
+            <button id="delete_song" class="btn btn-danger {{ show_delete_button }}" type="button" ng-click="askToRemoveSong(song._id.$oid, song.track_name);">Delete</button>
             <button id="cancel_detailForm" class="btn" ng-click="cancelAction()">Cancel</button>
         </fieldset>
     </form>
