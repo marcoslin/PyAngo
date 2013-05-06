@@ -58,3 +58,8 @@ if [ -z "$bz_file" ]; then
 else
 	bunzip2 -c $bz_file | $mongo_cmd
 fi
+
+mongo pyango --eval "db.songs.ensureIndex( { track_name: 1 } )"
+mongo pyango --eval "db.songs.ensureIndex( { artist: 1 } )"
+mongo pyango --eval "db.songs.ensureIndex( { album: 1 } )"
+mongo pyango --eval "db.songs.ensureIndex( { genre: 1 } )"

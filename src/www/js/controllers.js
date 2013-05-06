@@ -74,6 +74,11 @@ pyango_app.controller('SongListController', function ($scope, $routeParams, Song
             query_param[$scope.search_by] = $scope.search_term;
         }
 
+        if ($scope.sortField) {
+            query_param.sort_by = $scope.sortField;
+            query_param.sort_asc = $scope.sortAsc;
+        }
+
         var song_page = Songs.get(
             query_param,
             function () {
@@ -94,6 +99,46 @@ pyango_app.controller('SongListController', function ($scope, $routeParams, Song
             loadSongs();
         }
     });
+
+
+    // Sort Result
+    $scope.setSortBy = function(sortField) {
+        if ($scope.sortField === sortField && $scope.sortAsc === 0) {
+            $scope.sortField = undefined;
+            $scope.sortAsc = undefined;
+        } else {
+            console.log("sortField: " + sortField);
+            if ($scope.sortField === undefined) {
+                $scope.sortAsc = 1;
+            } else if ($scope.sortField === sortField) {
+                $scope.sortAsc = 0;
+            } else if ($scope.sortAsc === undefined) {
+                $scope.sortAsc = 1;
+            } else if ($scope.sortAsc === 1) {
+                $scope.sortAsc = 0;
+            } else {
+                $scope.sortAsc = 1;
+            }
+            $scope.sortField = sortField;
+        }
+        loadSongs();
+    };
+    $scope.getSortImageName = function ( fieldName ) {
+        var no_sort = "sort_both.png";
+        if ( $scope.sortField === undefined ) {
+            return no_sort;
+        } else {
+            if ( $scope.sortField === fieldName ) {
+                if ($scope.sortAsc === 1) {
+                    return "sort_asc.png";
+                } else {
+                    return "sort_desc.png";
+                }
+            } else {
+                return no_sort;
+            }
+        }
+    };
 
     loadSongs();
 

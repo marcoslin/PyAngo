@@ -14,12 +14,24 @@
     </div>
 
     <table class="table table-striped table-hover">
-        <thead><tr>
-            <th>Name</th>
+        <thead class="sorting"><tr>
+            <th>
+                <a href="" ng-click="setSortBy('track_name')">Name</a>
+                <img class="pull-right" ng-src="images/{{ getSortImageName('track_name') }}" />
+            </th>
             <th>Track</th>
-            <th>Artist</th>
-            <th>Album</th>
-            <th>Genre</th>
+            <th>
+                <a href="" ng-click="setSortBy('artist')">Artist</a>
+                <img class="pull-right" ng-src="images/{{ getSortImageName('artist') }}" />
+            </th>
+            <th>
+                <a href="" ng-click="setSortBy('album')">Album</a>
+                <img class="pull-right" ng-src="images/{{ getSortImageName('album') }}" />
+            </th>
+            <th>
+                <a href="" ng-click="setSortBy('genre')">Genre</a>
+                <img class="pull-right" ng-src="images/{{ getSortImageName('genre') }}" />
+            </th>
         </tr></thead>
         <tbody>
         <tr ng-repeat="song in songs">
@@ -37,10 +49,13 @@
 
     <div id="song_list_paging">
         <pagination boundary-links="true" num-pages="totalPages" current-page="page_num" max-size="maxPagesBlocks" class="pagination-small" previous-text="&laquo;" next-text="&raquo;"></pagination>
+        <p>
+            sort: {{ sortField }}; direction {{ sortAsc }}
+        </p>
     </div>
 
     <p>
-        <button id="add_song" class="btn btn-primary" onclick="window.location.href='#/song/add'">Add Song</button>{{ theMessage }}
+        <button id="add_song" class="btn btn-primary" onclick="window.location.href='#/song/add'">Add Song</button>
     </p>
 
     <div id="alert_section">
