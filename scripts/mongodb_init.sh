@@ -8,32 +8,53 @@
 # It accepts a JSON file as input arg, or pass - read from STDIN
 #
 
-json_file=$1
-default_file="../data/pyango.songs.json"
+input_arg=$1
+data_dir="../data"
+small_file="$data_dir/small.pyango.songs.json.bz2"
+large_file="$data_dir/large.pyango.songs.json.bz2"
 
 help_needed() {
 	echo "Script used to load initial data to pyango MongoDB database.
 Usage:
- $0 [<file>|-]
+	$0 [small|large|<file>]
 
 Note:
- * if <file> not passed, the default '$default_file' will be used.
- * - is used to source the JSON from STDIN
+	* If no parameter passed, source from STDIN
+	* small: uses $small_file
+	* large: uses $large_file
+	* <file>: source using <file> passed
 "
+	exit 1
 }
 
-
-
-if [ "$json_file" = "--help" -o "$json_file" = "-h" ]; then
-	help_needed
-	exit
-elif [ -f "$json_file" ]; then
-	import_opt="--file $json_file"
-elif [ "$json_file" = "-" ]; then
-	import_opt=""
-else
-	import_opt="--file $default_file"
+import_opt=""
+bz_file=""
+if [ -n "$input_arg" ]; then
+	case "$input_arg" in
+		-h|--help)
+			help_needed;
+			;;
+	    small)
+	    	bz_file=$small_file;
+	    	;;
+	    large)
+	    	bz_file=$large_file;
+	    	;;
+	    *)
+	    	if [ ! -f "$input_arg" ]; then
+	    		echo "### File $input_arg not foud"
+	    		exit 1
+	    	fi
+	    	import_opt="--file $input_arg"
+	    	;;
+	esac
 fi
 
 mongo pyango --eval "db.dropDatabase()"
-mongoimport --db pyango --collection songs $import_opt
+
+mongo_cmd="mongoimport --db pyango --collection songs"
+if [ -z "$bz_file" ]; then
+	$mongo_cmd $import_opt
+else
+	bunzip2 -c $bz_file | $mongo_cmd
+fi
