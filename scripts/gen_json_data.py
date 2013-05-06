@@ -36,9 +36,14 @@ con = sqlite3.connect(db_file)
 con.row_factory = sqlite3.Row
 cur = con.cursor()
 
+sql_select = '''
+select * from itune_track
+where album != '' and artist != '' and track_kind like '%audio file'
+order by artist, album, track_name limit '''
+
 # Create result
 # cur.execute("select * from itune_track where album in (%s)" % "'Back In Black', '21', 'Forever Young', 'Elis & Tom', 'Brit Awards 2003'")
-cur.execute("select * from itune_track where album != '' and artist != '' order by artist, album, track_name limit %d" % set_row_count)
+cur.execute(sql_select + str(set_row_count))
 for row in cur:
     dic = OrderedDict()
     for field in field_layout:
