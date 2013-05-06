@@ -21,10 +21,10 @@ make virtualenv
 ```
 
 ### Database Initialization
-To initialize MongoDB with initial sample data, run:
+To initialize MongoDB with initial sample data, choosing either to use `small` or `large` data set, run:
 ```
 cd scripts/
-mongodb_init.sh
+mongodb_init.sh [large!small]
 ```
 
 ### Start a webserver
