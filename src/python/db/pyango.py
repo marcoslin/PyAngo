@@ -14,11 +14,16 @@ Note:
 
 from __future__ import division
 import math
+import re
 import pymongo
 from bson import json_util
 from bson.objectid import ObjectId
 import json
 
+# DEFINE CONSTANTS
+DEFAULT_PAGE_SIZE=15
+
+# DEFINE MongoDB collections
 con = pymongo.MongoClient("localhost", 27017)
 db = con.pyango
 songs = db.songs
@@ -26,18 +31,49 @@ songs = db.songs
 
 # ========================================
 # SONGS Related
-def find_page(page_num, page_size):
+def find_page(page_num, query_string, logger):
+    # Set the page_size from query string
+    if ( "page_size" in query_string ):
+        try:
+            page_size = int(query_string["page_size"])
+        except:
+            page_size = DEFAULT_PAGE_SIZE
+    else:
+        page_size = DEFAULT_PAGE_SIZE
+    
+    # Set the db query
+    db_query = {}
+    for search_by in ("search", "track_name", "artist", "album"):
+        if ( search_by in query_string ):
+            search_str = query_string[search_by]
+            search_re = re.compile(search_str, re.IGNORECASE)
+
+            if ( search_by == "search" ):
+                db_query["$or"] = [
+                    { "track_name": { "$regex": search_re } },
+                    { "artist": { "$regex": search_re } },
+                    { "album": { "$regex": search_re } }
+                ]
+            else:
+                db_query[search_by] = { "$regex": search_re }
+            break
+    
+    logger.debug("db_query: %s" % db_query)
+
+    # Run query
     first_row = True
     skip_count = (page_num-1) * page_size
     
     # Find out how many pages there are
-    row_count = songs.count()
+    row_count = songs.find(db_query).count()
     total_pages = math.ceil( row_count / page_size )
+    
+    
     yield '{ "total_pages": %d, "rows": ' % total_pages
     
     
     yield "["
-    for song in songs.find().skip(skip_count).limit(page_size):
+    for song in songs.find(db_query).skip(skip_count).limit(page_size):
         if first_row:
             yield json.dumps(song, default=json_util.default)
             first_row = False

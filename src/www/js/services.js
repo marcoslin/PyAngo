@@ -7,7 +7,7 @@
 angular.module("jsonServices", ['ngResource', 'ui.bootstrap'])
     .factory('Songs', function ($resource) {
         'use strict';
-        return $resource("/json/songs/:page_num/:page_size", { page_num: 1, page_size: 15 }, {
+        return $resource("/json/songs/:page_num", { page_num: 1 }, {
             get: { method: 'GET' }
         });
     })

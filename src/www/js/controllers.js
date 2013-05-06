@@ -7,8 +7,9 @@
 pyango_app.controller('SongListController', function ($scope, $routeParams, Songs, SongsNavigation, AlertService, Confirm) {
     'use strict';
     // Define Paging
-    var pageSize = 15, songsPageNumber = SongsNavigation.getSongsPageNumber();
+    var songsPageNumber = SongsNavigation.getSongsPageNumber();
     $scope.maxPagesBlocks = 15;
+    $scope.search_by = "search";
 
     if (songsPageNumber) {
         $scope.page_num = songsPageNumber;
@@ -59,10 +60,22 @@ pyango_app.controller('SongListController', function ($scope, $routeParams, Song
             });
     };
 
+    // Search related
+    $scope.searchFormSubmit = function () {
+        alert.$success("Searching for " + $scope.search_term + " using " + $scope.search_by);
+        loadSongs();
+    };
+
     // Populate Data
     var loadSongs = function () {
+        var query_param = { page_num: $scope.page_num }
+
+        if ($scope.search_term) {
+            query_param[$scope.search_by] = $scope.search_term;
+        }
+
         var song_page = Songs.get(
-            { page_num: $scope.page_num, page_size: pageSize },
+            query_param,
             function () {
                 $scope.totalPages = song_page.total_pages;
                 $scope.songs = song_page.rows;

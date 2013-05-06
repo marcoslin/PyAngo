@@ -26,14 +26,14 @@ def app_index():
 
 # ========================================
 # SONGS Related
-@app.route("/json/songs/<int:page_num>/<int:page_size>", methods=['GET'])
-def songs_page_query(page_num, page_size):
-    #return "page_num: %s; page_size: %s" % (page_num, page_size)
-    return Response(pyango.find_page(page_num, page_size), mimetype="application/json") 
+@app.route("/json/test/", defaults={ "page_num": 1 }, methods=['GET'])
+@app.route("/json/test/<int:page_num>", methods=['GET'])
+def test(*args, **kwargs):
+    return "args: %s; kwargs: %s; request.args: %s" % (str(args), str(kwargs), str(request.args))
 
-#@app.route("/json/song", methods=['GET'])
-#def song_query():
-#    return Response(pyango.find_all(), mimetype="application/json")
+@app.route("/json/songs/<int:page_num>", methods=['GET'])
+def songs_page_query(page_num):
+    return Response(pyango.find_page(page_num, request.args, app.logger), mimetype="application/json") 
 
 @app.route("/json/song/<song_oid>", methods=['GET'])
 def song_get(song_oid):

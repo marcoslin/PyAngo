@@ -1,6 +1,17 @@
 <div>
 
-    <h2>Songs List</h2>
+    <div>
+        <h2 class="inline">Songs List</h2>
+        <form class="navbar-search pull-right" ng-submit="searchFormSubmit()">
+            <select class="search-query input-small" ng-model="search_by">
+                <option value="search">All</option>
+                <option value="track_name">Name</option>
+                <option value="artist">Artist</option>
+                <option value="album">Album</option>
+            </select>
+            <input type="text" class="search-query" placeholder="Search" ng-model="search_term">
+        </form>
+    </div>
 
     <table class="table table-striped table-hover">
         <thead><tr>
