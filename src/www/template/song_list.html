@@ -2,41 +2,44 @@
 
     <div>
         <h2 class="inline">Songs List</h2>
-        <form class="navbar-search pull-right" ng-submit="searchFormSubmit()">
-            <select class="search-query input-small" ng-model="search_by">
+        <form id="search_form" class="navbar-search pull-right" ng-submit="searchFormSubmit();">
+            <select id="search_by" class="search-query input-small" ng-model="search_by">
                 <option value="search">All</option>
                 <option value="track_name">Name</option>
                 <option value="artist">Artist</option>
                 <option value="album">Album</option>
             </select>
             <input type="text" class="search-query" placeholder="Search" ng-model="search_term_input">
+            <a id="submit" class="btn btn-mini" ng-click="searchFormSubmit();"><i class="icon-search"></i></a>
         </form>
     </div>
 
     <table class="table table-striped table-hover">
         <thead class="sorting"><tr>
             <th>
-                <a href="" ng-click="setSortBy('track_name')">Name</a>
+                <a id="song_track_name_header" href="" ng-click="setSortBy('track_name')">Name</a>
                 <img class="pull-right" ng-src="img/{{ track_name_sort_img || 'sort_both.png' }}" />
             </th>
             <th>Track</th>
             <th>
-                <a href="" ng-click="setSortBy('artist')">Artist</a>
+                <a id="song_artist_header" href="" ng-click="setSortBy('artist')">Artist</a>
                 <img class="pull-right" ng-src="img/{{ artist_sort_img || 'sort_both.png' }}" />
             </th>
             <th>
-                <a href="" ng-click="setSortBy('album')">Album</a>
+                <a id="song_album_header" href="" ng-click="setSortBy('album')">Album</a>
                 <img class="pull-right" ng-src="img/{{ album_sort_img || 'sort_both.png' }}" />
             </th>
             <th>
-                <a href="" ng-click="setSortBy('genre')">Genre</a>
+                <a id="song_genre_header" href="" ng-click="setSortBy('genre')">Genre</a>
                 <img class="pull-right" ng-src="img/{{ genre_sort_img || 'sort_both.png' }}" />
             </th>
         </tr></thead>
         <tbody>
         <tr ng-repeat="song in songs">
             <td>
-                <a class="song_name" href="#/song/{{ song._id.$oid }}" ng-bind="song.track_name"></a>
+                <!-- class song_track_name is used for e2e testing only -->
+                <span class="song_oid hide" ng-bind="song._id.$oid"></span>
+                <a class="song_track_name" href="#/song/{{ song._id.$oid }}" ng-bind="song.track_name"></a>
             </td>
             <td ng-bind="song.track_num"></td>
             <td ng-bind="song.artist"></td>

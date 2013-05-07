@@ -166,7 +166,7 @@ pyango_app.controller('SongController', function ($scope, $route, $routeParams, 
         $scope.song.$save(
             { song_oid: $routeParams.song_oid },
             function () {
-                alert.$success("'" + $scope.song.name + "' updated.");
+                alert.$success("'" + $scope.song.track_name + "' updated.");
                 SongsNavigation.gotoSongsPage();
             },
             function (error) {

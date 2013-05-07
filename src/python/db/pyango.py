@@ -73,7 +73,7 @@ def find_page(page_num, query_string, logger):
         else:
             db_sort= [(sort_by, pymongo.DESCENDING)];
     
-    logger.debug("db_query: %s" % db_query)
+    # logger.debug("db_query: %s" % db_query)
 
     # Run query
     first_row = True

@@ -6,8 +6,9 @@
             <legend>Info</legend>
             <ul class="unstyled">
                 <li>
-                    <label for="song_name">Name: </label>
-                    <input id="song_name" class="input-xxlarge" type="text" ng-model="song.track_name" required />
+                    <span id="song_oid" class="hide" ng-bind="song._id.$oid"></span>
+                    <label for="song_track_name">Name: </label>
+                    <input id="song_track_name" class="input-xxlarge" type="text" ng-model="song.track_name" required />
                 </li>
 
                 <li>
@@ -21,7 +22,6 @@
                         <input id="song_year" class="input-small" type="number" ng-model="song.track_year" />
                     </div>
                 </li>
-
 
                 <li>
                     <label for="song_artist">Artist:</label>

@@ -8,13 +8,24 @@ Created on 3 Mar 2013
 JSON Server
 '''
 
-import os
+import sys, os
 from flask import Flask, redirect, request, Response, send_from_directory
 from db import pyango
 
+# Check for input args and set the unit test mode
+# NOTE: No special processing at this point for unit test mode
+unit_test_mode = False
+if len(sys.argv) > 1:
+    if sys.argv[1] == "--utest":
+        unit_test_mode = True
+        print "* UNIT TEST MODE"
+    
 # Configure Static File Server for HTML
-http_root = os.path.join(os.path.dirname(__file__), "../www")
+script_path=os.path.dirname(os.path.abspath(__file__))
+http_root = os.path.join(script_path, "../www")
+# print "* HTTP ROOT: %s" % http_root
 app = Flask(__name__, static_folder=http_root, static_url_path="/app")
+
 
 @app.route("/")
 def index():
@@ -63,7 +74,6 @@ def ref_genre_list(attr_name):
         return Response(pyango.reference_data(attr_name), mimetype="application/json")
     else:
         return "Reference data does not exists for '%s'" % attr_name, 404
-
 
 # Start the server
 if __name__ == "__main__":
