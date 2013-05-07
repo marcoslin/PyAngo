@@ -9,7 +9,8 @@
 #
 
 input_arg=$1
-data_dir="../data"
+script_dir=`dirname $0`
+data_dir="$script_dir/../data"
 small_file="$data_dir/small.pyango.songs.json.bz2"
 large_file="$data_dir/large.pyango.songs.json.bz2"
 
@@ -23,7 +24,7 @@ Note:
 	* small: uses $small_file
 	* large: uses $large_file
 	* <file>: source using <file> passed
-"
+" 1>&2
 	exit 1
 }
 
@@ -42,7 +43,7 @@ if [ -n "$input_arg" ]; then
 	    	;;
 	    *)
 	    	if [ ! -f "$input_arg" ]; then
-	    		echo "### File $input_arg not foud"
+	    		echo "### File $input_arg not foud" 1>&2
 	    		exit 1
 	    	fi
 	    	import_opt="--file $input_arg"
@@ -51,15 +52,44 @@ if [ -n "$input_arg" ]; then
 fi
 
 mongo pyango --eval "db.dropDatabase()"
+if [ $? -ne 0 ]; then
+	exit 1
+fi
 
 mongo_cmd="mongoimport --db pyango --collection songs"
 if [ -z "$bz_file" ]; then
+	if [ -z "$import_opt" ]; then
+		echo
+		echo "*** Reading JSON from STDIN..."
+	fi
 	$mongo_cmd $import_opt
+	if [ $? -ne 0]; then
+		exit 1
+	fi
 else
 	bunzip2 -c $bz_file | $mongo_cmd
+	if [ $? -ne 0 ]; then
+		exit 1
+	fi
 fi
 
 mongo pyango --eval "db.songs.ensureIndex( { track_name: 1 } )"
+if [ $? -ne 0 ]; then
+	exit 1
+fi
+
 mongo pyango --eval "db.songs.ensureIndex( { artist: 1 } )"
+if [ $? -ne 0 ]; then
+	exit 1
+fi
+
 mongo pyango --eval "db.songs.ensureIndex( { album: 1 } )"
+if [ $? -ne 0 ]; then
+	exit 1
+fi
+
 mongo pyango --eval "db.songs.ensureIndex( { genre: 1 } )"
+if [ $? -ne 0 ]; then
+	exit 1
+fi
+
