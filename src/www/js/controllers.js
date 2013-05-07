@@ -3,6 +3,7 @@
  */
 
 /*global angular, pyango_app */
+/*jslint vars: true */
 
 pyango_app.controller('SongListController', function ($scope, $routeParams, Songs, SongsNavigation, AlertService) {
     'use strict';
