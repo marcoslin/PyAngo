@@ -122,7 +122,7 @@ describe('pyango.app', function () {
             expect(element("#song_list_paging .active a").text()).toBe(page_num);
         });
 
-	});
+    });
 
     describe('Edit View', function () {
         var song_oid = "5188dc1abd243fef4fbed627",
