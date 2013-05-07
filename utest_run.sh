@@ -4,14 +4,14 @@
 cd utest
 
 
-ang_run.sh --single-run
+./ang_run.sh --single-run
 if [ $? -ne 0 ]; then
 	echo "### Unit test failed."
 	exit 1
 fi
 
 echo ""
-e2e_run.sh --single-run
+./e2e_run.sh --single-run
 if [ $? -ne 0 ]; then
 	echo "### End-to-end test failed."
 	exit 1
