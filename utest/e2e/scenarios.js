@@ -1,13 +1,13 @@
 /* http://docs.angularjs.org/guide/dev_guide.e2e-testing */
 
-/*globals describe beforeEach*/
+/*globals*/
+/*jslint vars: true, */
 
-
-describe('pyango.app', function() {
+describe('pyango.app', function () {
     'use strict';
 
-	describe('List View', function() {
-        beforeEach(function() {
+    describe('List View', function () {
+        beforeEach(function () {
             browser().navigateTo('/app/#/songs/');
         });
 
@@ -57,6 +57,8 @@ describe('pyango.app', function() {
             expect(browser().location().url()).toMatch(/song\/\w+/);
             expect(element("#form_title").text()).toBe("Edit Song");
             expect(input("song.track_name").val()).toBe("Fotografia");
+            // Delete button should be present
+            expect(repeater('#delete_song.hide').count()).toBe(0);
             // Make sure cancel works
             element("#cancel_detailForm").click();
             expect(browser().location().url()).toBe("/songs/");
@@ -66,6 +68,8 @@ describe('pyango.app', function() {
             element("#add_song").click();
             expect(browser().location().url()).toBe("/song/add");
             expect(element("#form_title").text()).toBe("Add a New Song");
+            // Delete button should be hidden
+            expect(repeater('#delete_song.hide').count()).toBe(1);
             // Make sure cancel works
             element("#cancel_detailForm").click();
             expect(browser().location().url()).toBe("/songs/");
